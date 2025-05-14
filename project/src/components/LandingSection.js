@@ -11,7 +11,7 @@ const LandingSection = () => (
     justifyContent="center"
     alignItems="center"
     isDarkBackground
-    backgroundColor="#2A4365"
+    backgroundColor="#18181b"
   >
     <VStack>
       <Avatar size="2XL" src="https://i.pravatar.cc/150?img=7" />

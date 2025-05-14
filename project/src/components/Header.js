@@ -33,6 +33,32 @@ const socials = [
 ];
 
 const Header = () => {
+  const headerRef = useRef(null);
+  useEffect(() => {
+    let previousScroll = window.scrollY;
+
+    const handleScroll = () => {
+      const headerElement = headerRef.current;
+      if (!headerElement) {
+        return;
+      }
+      const currentScroll = window.scrollY;
+
+      if (currentScroll < previousScroll) {
+        headerElement.style.transform = "translateY(0)";
+      } else {
+        headerElement.style.transform = "translateY(-200px)";
+      }
+      previousScroll = currentScroll;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
@@ -55,6 +81,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      ref={headerRef}
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
@@ -67,7 +94,7 @@ const Header = () => {
             <HStack spacing={8}>
               {socials.map((x) => (
                 <a key={x.url} href={x.url}>
-                  <FontAwesomeIcon icon={x.icon} size="2x" />
+                  <FontAwesomeIcon icon={x.icon} size="2x" key={x.url} />
                 </a>
               ))}
             </HStack>
